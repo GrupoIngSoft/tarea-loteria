@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void archivo()
+{
+    printf("archivo");
+}
+
+void inf()
+{
+    printf("informacion");
+}
+
+void menu(char opcion[], char g[], char v[])
+{
+    if(strcmp(opcion, g)==0)
+    {
+        archivo();
+    }
+    if(strcmp(opcion, v)==0)
+    {
+        inf();
+    }
+    if(strcmp(opcion, g)!=0 && strcmp(opcion, v)!=0)
+    {
+        printf("Opcion invalida!\n");
+        fflush(stdin);
+    }
+}
+
+int main()
+{
+    char g[10]="-g";
+    char v[10]="-v";
+    char opcion[10];
+    printf("Ingrese Opcion:");
+    gets(opcion);
+    menu(opcion,g,v);
+    return 0;
+}
