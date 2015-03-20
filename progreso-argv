@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include<time.h>
+
+void archivo()
+{
+    printf("archivo");
+}
+
+void inf()
+{
+    printf("informacion");
+}
+
+int main(int argc, char *argv[])
+{
+
+    if(strcmp(argv[1],"-g")==0)
+    {
+        archivo();
+    }
+    if(strcmp(argv[1],"-v")==0)
+    {
+        inf();
+    }
+    if(strcmp(argv[1],"-g")!=0 && strcmp(argv[1],"-v")!=0)
+    {
+        printf("opcion invalida!\n");
+    }
+    return 0;
+}
