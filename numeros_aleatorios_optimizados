@@ -8,18 +8,6 @@ int rdtsc()
     __asm__ __volatile__("rdtsc");
 }
 
-void ordenar(int numeros[], int tam)
-{
-  int i, j;
-  int aux;
-  for (i=1; i<tam; i++)
-        for (j=0 ; j<tam - 1; j++)
-               if (numeros[j] > numeros[j+1])
-                    aux = numeros[j];
-                    numeros[j] = numeros[j+1];
-                    numeros[j+1] = aux;
-}
-
 int buscarNumero(int numero, int arreglo[], int tam)
 {
     int i, stop=0;
