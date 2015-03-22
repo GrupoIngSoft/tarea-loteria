@@ -24,6 +24,11 @@ void opcionGuionV(int day, int month, int year)
 	return stop;
 }*/
 
+int rdtsc()
+{
+    __asm__ __volatile__("rdtsc");
+}
+
 void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 {
 	FILE *archivo;
@@ -35,15 +40,7 @@ void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 	int num_random;
 	int fstop;
 	
-	srand(time(NULL));
-	
-	/*for(i = 0; i < 14; i++)
-	{
-		do{
-			num_random = inicio+rand()%(fin - inicio + 1);
-			fstop = buscarNumero(num_random, numeros, 14);
-		}while(fstop);
-	}*/
+	srand(rdtsc());
 	
 	for(i = 0; i < 14; i++)
 	{
