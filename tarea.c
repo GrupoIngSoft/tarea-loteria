@@ -1,88 +1,65 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <string.h>
-
-int numeros[14];
-
-void opcionGuionV(int day, int month, int year)
-{
-	printf("Fecha: %d-%d-%d\n", day, month, year);
-	printf("Integrantes: criutor, maapakn, rvivar88\n");
-}
-
-/*int buscarNumero(int numero, int arreglo[], int tam)
-{
-	int i, stop = 0;
-	for(i = 0; (i < tam && stop == 0); i++)
-	{
-		if(arreglo[i] == numero)
-		{
-			stop = 1;
-		}
-	}
-	return stop;
-}*/
+#include<time.h>
+#define TAM 14
 
 int rdtsc()
 {
     __asm__ __volatile__("rdtsc");
 }
 
-void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
+int buscarNumero(int numero, int arreglo[], int tam)
 {
-	FILE *archivo;
-	int i;
-	int c;
-	int aux;
-	int inicio = 1;
-	int fin = 25;
-	int num_random;
-	int fstop;
-	
-	srand(rdtsc());
-	
-	for(i = 0; i < 14; i++)
-	{
-		int num = 1 + rand()%25;
-		if(i > 0)
-		{
-			int j;
-			for(j = 0; j < i ; j++)
-			{
-				if(num == numeros[j])
-				{
-					num = 1 + rand()%25;
-					j=-1;
-				}
-			}
-		}
-		numeros[i] = num;
-	}
-	
-	for(c = 0; c < 14; c++)
-	{
-		for(aux = c + 1; aux < 14; aux++)
-		{
-			int temp;
-			if(numeros[c] > numeros[aux])
-			{
-				temp = numeros[c];
-				numeros[c] = numeros[aux];
-				numeros[aux] = temp;
-			}
-		}
-	}
-	
-	
-	archivo = fopen("archivoDos.txt", "a");
+    int i, stop=0;
+    for(i=0;(i<tam && stop==0);i++)
+    {
+        if(arreglo[i]==numero)
+        {
+            stop=1;
+        }
+    }
+    return stop;
+}
+
+void archivoG(int day, int month, int year, int hour, int sec)
+{
+    FILE *archivo;
+    int min=1;
+    int max=25;
+    int num_aleatorio;
+    int numeros[TAM]={-1};
+    int fstop;
+    int i,j,aux=0;
+    srand(rdtsc());
+    for(i=0;i<TAM;i++)
+    {
+        do{
+            num_aleatorio=min+rand()%(max-min+1);
+            fstop=buscarNumero(num_aleatorio,numeros,TAM);
+            }while(fstop);
+            numeros[i]=num_aleatorio;
+    }
+    for (i=1; i<TAM; i++)
+    {
+        for (j=0 ; j<TAM - 1; j++)
+        {
+            if (numeros[j] > numeros[j+1])
+            {
+                aux = numeros[j];
+                numeros[j] = numeros[j+1];
+                numeros[j+1] = aux;
+            }
+        }
+    }
+    archivo = fopen("archivoDos.csv", "a");
 	if(archivo == NULL)
 	{
 		printf("No se pudo abrir el archivo para su escritura\n");
 		exit(0);
 	}
 	fprintf(archivo, "%d-%d-%d %d:%d:%d;", year, month, day, hour, min, sec);
-	for(i = 0; i < 14; i++)
+	for(i = 0; i < TAM; i++)
 	{
 		fprintf(archivo, "%d;",numeros[i]);
 	}
@@ -90,9 +67,15 @@ void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 	fclose(archivo);
 }
 
+void infV(int day, int month, int year)
+{
+    printf("Fecha: %d-%d-%d\n", day, month, year);
+	printf("Integrantes: Cesar Riutor, Diego Esparza, Rafael Vivar\n");
+}
+
 int main(int argc, char *argv[])
 {
-	time_t t = time(NULL);
+    time_t t = time(NULL);
 	struct tm tm = *localtime(&t);
 	int day = tm.tm_mday;
 	int month = tm.tm_mon + 1;
@@ -100,20 +83,18 @@ int main(int argc, char *argv[])
 	int hour = tm.tm_hour;
 	int min = tm.tm_min;
 	int sec = tm.tm_sec;
-	if(argc == 1 || argc > 2 || strcmp("-v", argv[1]) != 0 || strcmp("-g", argv[1]) != 0)
-	{
-		printf("USO: %s + [-v] o [-g]", argv[0]);
-	}
-	else
-	{
-		if(strcmp("-v", argv[1]) == 0)
-		{
-			opcionGuionV(day, month, year);
-		}
-		if(strcmp("-g", argv[1]) == 0)
-		{
-			opcionGuionG(day, month, year, hour, min, sec);
-		}
-	}
-	return 0;
+
+	if(strcmp(argv[1],"-g")==0)
+    {
+        archivoG(day, month, year, hour, sec);
+    }
+    if(strcmp(argv[1],"-v")==0)
+    {
+        infV(day, month, year);
+    }
+    if(strcmp(argv[1],"-g")!=0 && strcmp(argv[1],"-v")!=0)
+    {
+        printf("opcion invalida!\n");
+    }
+    return 0;
 }
