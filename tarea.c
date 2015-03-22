@@ -100,9 +100,9 @@ int main(int argc, char *argv[])
 	int hour = tm.tm_hour;
 	int min = tm.tm_min;
 	int sec = tm.tm_sec;
-	if(argc == 1)
+	if(argc == 1 || argc > 2 || strcmp("-v", argv[1]) != 0 || strcmp("-g", argv[1]) != 0)
 	{
-		printf("USO: %s + [-v] ó [-g]", argv[0]);
+		printf("USO: %s + [-v] o [-g]", argv[0]);
 	}
 	else
 	{
@@ -113,10 +113,6 @@ int main(int argc, char *argv[])
 		if(strcmp("-g", argv[1]) == 0)
 		{
 			opcionGuionG(day, month, year, hour, min, sec);
-		}
-		else
-		{
-			printf("USO: %s + [-v] ó [-g]", argv[0]);
 		}
 	}
 	return 0;
