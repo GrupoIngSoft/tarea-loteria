@@ -103,13 +103,24 @@ int main(int argc, char *argv[])
 	int hour = tm.tm_hour;
 	int min = tm.tm_min;
 	int sec = tm.tm_sec;
-	if(strcmp("-v", argv[1]) == 0)
+	if(argc == 1)
 	{
-		opcionGuionV(day, month, year);
+		printf("USO: %s + [-v] ó [-g]", argv[0]);
 	}
-	if(strcmp("-g", argv[1]) == 0)
+	else
 	{
-		opcionGuionG(day, month, year, hour, min, sec);
+		if(strcmp("-v", argv[1]) == 0)
+		{
+			opcionGuionV(day, month, year);
+		}
+		if(strcmp("-g", argv[1]) == 0)
+		{
+			opcionGuionG(day, month, year, hour, min, sec);
+		}
+		else
+		{
+			printf("USO: %s + [-v] ó [-g]", argv[0]);
+		}
 	}
 	return 0;
 }
