@@ -84,10 +84,10 @@ void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 		printf("No se pudo abrir el archivo para su escritura\n");
 		exit(0);
 	}
-	fprintf(archivo, "%d-%d-%d %d:%d:%d ", year, month, day, hour, min, sec);
+	fprintf(archivo, "%d-%d-%d %d:%d:%d;", year, month, day, hour, min, sec);
 	for(i = 0; i < 14; i++)
 	{
-		fprintf(archivo, "%d; ",numeros[i]);
+		fprintf(archivo, "%d;",numeros[i]);
 	}
 	fprintf(archivo, "\n");
 	fclose(archivo);
