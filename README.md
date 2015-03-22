@@ -1,4 +1,13 @@
 # tarea-loteria
 repositorio de tarea loteria
 
-Se compila con g++ (para el caso del archivo .cpp) mediante "g++ <nombre del archivo> -o <nombre del ejecutable>" y se ejecuta con <nombre del ejecutable> -g (para generar un archivo de texto con fecha en formato ISO "a la mala" y una serie de 14 números que van del 1 al 25) ó -v (para mostrar la fecha de compilación y mostrar los nombres de usuario de github)
+Se compila con "gcc tareaSoftwareUno.c -o <nombre del archivo ejecutable>"
+Se ejecuta con "./<nombre del archivo ejecutable> -g ó -v
+
+La opción -g genera un archivo separado por punto y coma (;) de extensi ́on csv, que tiene la sigu-
+iente estructura: Fecha en formato ISO (yyyy-mm-dd HH:mm:ss) y la lista de numeros (Ejemplo:
+2015-03-16 12:15;01;02;04;06;07;09;11;13;14;16;20;22;23).
+
+La opción -v muestra por pantalla los integrantes del grupo seguido de la fecha de compilación del archivo.
+
+
