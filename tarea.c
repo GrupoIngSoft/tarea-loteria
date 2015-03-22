@@ -3,7 +3,7 @@
 #include <time.h>
 #include <string.h>
 
-int numeros[14] = {-1};
+int numeros[14];
 
 void opcionGuionV(int day, int month, int year)
 {
@@ -11,7 +11,7 @@ void opcionGuionV(int day, int month, int year)
 	printf("Integrantes: criutor, maapakn, rvivar88\n");
 }
 
-int buscarNumero(int numero, int arreglo[], int tam)
+/*int buscarNumero(int numero, int arreglo[], int tam)
 {
 	int i, stop = 0;
 	for(i = 0; (i < tam && stop == 0); i++)
@@ -22,7 +22,7 @@ int buscarNumero(int numero, int arreglo[], int tam)
 		}
 	}
 	return stop;
-}
+}*/
 
 void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 {
@@ -37,17 +37,35 @@ void opcionGuionG(int day, int month, int year, int hour, int min, int sec)
 	
 	srand(time(NULL));
 	
-	for(i = 0; i < 14; i++)
+	/*for(i = 0; i < 14; i++)
 	{
 		do{
 			num_random = inicio+rand()%(fin - inicio + 1);
 			fstop = buscarNumero(num_random, numeros, 14);
 		}while(fstop);
+	}*/
+	
+	for(i = 0; i < 14; i++)
+	{
+		int num = 1 + rand()%25;
+		if(i > 0)
+		{
+			int j;
+			for(j = 0; j < i ; j++)
+			{
+				if(num == numeros[j])
+				{
+					num = 1 + rand()%25;
+					j=-1;
+				}
+			}
+		}
+		numeros[i] = num;
 	}
 	
 	for(c = 0; c < 14; c++)
 	{
-		for(aux = 1; aux < 14; aux++)
+		for(aux = c + 1; aux < 14; aux++)
 		{
 			int temp;
 			if(numeros[c] > numeros[aux])
