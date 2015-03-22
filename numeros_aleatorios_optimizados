@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include <stdlib.h>
+#include<time.h>
+#define TAM 14
+
+int rdtsc()
+{
+    __asm__ __volatile__("rdtsc");
+}
+
+void ordenar(int numeros[], int tam)
+{
+  int i, j;
+  int aux;
+  for (i=1; i<tam; i++)
+        for (j=0 ; j<tam - 1; j++)
+               if (numeros[j] > numeros[j+1])
+                    aux = numeros[j];
+                    numeros[j] = numeros[j+1];
+                    numeros[j+1] = aux;
+}
+
+int buscarNumero(int numero, int arreglo[], int tam)
+{
+    int i, stop=0;
+    for(i=0;(i<tam && stop==0);i++)
+    {
+        if(arreglo[i]==numero)
+        {
+            stop=1;
+        }
+    }
+    return stop;
+}
+
+int main(int argc , char* argv[])
+{
+    int min=1;
+    int max=25;
+    int num_aleatorio;
+    int numeros[TAM]={-1};
+    int fstop;
+    int i,j,aux=0;
+    srand(rdtsc());
+    for(i=0;i<TAM;i++)
+    {
+        do{
+            num_aleatorio=min+rand()%(max-min+1);
+            fstop=buscarNumero(num_aleatorio,numeros,TAM);
+            }while(fstop);
+        numeros[i]=num_aleatorio;
+    }
+    for (i=1; i<TAM; i++)
+    {
+        for (j=0 ; j<TAM - 1; j++)
+        {
+            if (numeros[j] > numeros[j+1])
+            {
+                aux = numeros[j];
+                numeros[j] = numeros[j+1];
+                numeros[j+1] = aux;
+            }
+        }
+    }
+    for(i=0;i<TAM;i++)
+    {
+        printf(" %d ",numeros[i]);
+    }
+    return(EXIT_SUCCESS);
+}
